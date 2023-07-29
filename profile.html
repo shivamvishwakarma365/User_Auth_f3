@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="main-2">
+        <p class="mssg">Signup Successfull!!</p>
+        <div class="main-container">
+            <div class="profile">
+                Profile
+            </div>
+            <div class="photo-top">
+                <img src="./assets/Vector.png" alt="img1">
+            </div>
+            <div class="photo-bottom">
+                <img src="./assets/Vector(1).png" alt="img2">
+            </div>
+            <div class="details">
+                
+            </div>
+            <div class="btn">
+                <button type="submit" id="logout">LOGOUT</button>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+    <script>
+        const obj=JSON.parse(sessionStorage.getItem('loggedInUser'));
+        const detailsDiv=document.querySelector('.main-2 .details');
+        detailsDiv.innerHTML=`<p>Full Name : ${obj.name}</p>
+                <p>Email : ${obj.email}</p>
+                <p>Token : ${obj.token}</p>
+                <p>Password : ${obj.password}</p>`;
+        
+        const logoutBtn=document.getElementById('logout');
+        logoutBtn.addEventListener('click',()=>{
+           let users=JSON.parse(localStorage.getItem('users'));
+           users.forEach(element => {
+            if(element.email===obj.email){
+                let index=users.indexOf(element);
+                users.splice(index,1);
+                
+            }
+            localStorage.setItem('users',JSON.stringify(users));
+           });
+           window.location.href='./index.html';
+        })
+
+    </script>
+</body>
+</html>
